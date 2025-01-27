@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets - Event Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Sidebar styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F4F7FE;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      padding-top: 20px;
+      align-items: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #939FBD;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar a i {
+      font-size: 1.2rem;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar a.active {
+      color: black;
+      background-color: #F4F7FE;
+      font-weight: 600;
+    }
+
+    .sidebar a.active i {
+      color: #48BB78;
+    }
+
+    .sidebar a:hover {
+      color: black;
+      background-color: #F4F7FE;
+    }
+
+    .sidebar a:hover i {
+      color: #48BB78;
+    }
+
+    .main-container {
+      margin-left: 250px;
+      margin-top: 20px;
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      font-style: italic;
+      color: #1B254B;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    /* Table styling */
+    
+    .custom-table thead {
+      background-color: #48BB78;
+      color: white;
+    }
+
+    .custom-table thead th {
+      padding: 13px;
+      text-align: left;
+      font-weight: 600;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .custom-table thead th:last-child {
+      border-right: none;
+    }
+
+    .custom-table tbody tr {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .custom-table tbody tr:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+      transform: scale(1.01);
+    }
+
+    .custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px; /* Increased spacing between rows */
+  background-color: transparent;
+}
+
+.custom-table tbody td {
+  padding: 6px; /* Reduced padding for smaller cell height */
+  text-align: left;
+  border-bottom: none;
+}
+
+    .custom-table tbody td.actions button {
+      margin: 0 4px;
+      font-size: 0.875rem;
+      padding: 4px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div>
+      <a href="#" class="text-decoration-none d-flex align-items-center">
+        <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 95px;">
+      </a>
+    </div>
+    <div>
+      <a href="#dashboard"><i class="bi bi-house-door"></i>Dashboard</a>
+      <a href="create-event.html"><i class="bi bi-plus-circle"></i>Create Event</a>
+      <a href="events.html"><i class="bi bi-calendar-event"></i>Events</a>
+      <a href="tickets.html" class="active"><i class="bi bi-ticket"></i>Tickets</a>
+
+    
+      <!-- <a href="#settings"><i class="bi bi-gear"></i>Settings</a> -->
+      <a href="#logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+    <div class="glass-image">
+      <img src="/Events-rafiki.png" alt="Event Management" style="width: 200px; height: 200px; padding-top: 100px">
+    </div>
+  </div>
+
+  <div class="main-container">
+    <h1>Manage Tickets</h1>
+    <button id="add-ticket-button" class="btn btn-success mb-3">
+      <i class="bi bi-plus-circle"></i> Add Ticket
+    </button>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Event Name</th>
+          <th>Ticket Type</th>
+          <th>Price</th>
+          <th>Quantity Available</th>
+          <th>Quantity Sold</th>
+          <th>Sales Start Date</th>
+          <th>Sales End Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tickets-table-body">
+        <tr>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const apiUrl = "http://localhost:8080/api/tickets"; // Replace with your API endpoint
+      const tableBody = document.getElementById("tickets-table-body");
+
+      // Fetch tickets from the API
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(tickets => {
+          tickets.forEach((ticket, index) => {
+            const row = document.createElement("tr");
+
+            // Create table cells for each ticket property
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${ticket.event.name}</td>
+              <td>${ticket.ticketType}</td>
+              <td>$${ticket.price.toFixed(2)}</td>
+              <td>${ticket.quantityAvailable}</td>
+              <td>${ticket.quantitySold}</td>
+              <td>${new Date(ticket.salesStartDate).toLocaleDateString()}</td>
+              <td>${new Date(ticket.salesEndDate).toLocaleDateString()}</td>
+              <td class="actions">
+                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Edit</button>
+                <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+              </td>
+            `;
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching tickets:", error);
+        });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
