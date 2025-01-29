@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Event</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F4F7FE;
+      margin: 0;
+      display: flex;
+    }
+
+    /* Sidebar remains untouched */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      padding-top: 20px;
+      align-items: center;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.06);
+    }
+
+    .main-container {
+      margin-left: 250px;
+      padding: 20px;
+      flex-grow: 1;
+      background-color: #F8F9FE;
+      min-height: 100vh;
+    }
+
+    /* Section header styling with green variations */
+    h2.section-header {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #38A169; /* Primary green */
+      margin-bottom: 20px;
+    }
+
+    h3.section-header {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #48BB78; /* Slightly lighter green */
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 5px;
+    }
+
+    .card-custom {
+      background-color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 30px;
+      /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); */
+    }
+
+    .form-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #4A5568;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      padding: 12px;
+      font-size: 0.9rem;
+      color: #4A5568;
+    }
+
+    .form-control:focus {
+      border-color: #48BB78;
+      box-shadow: 0 0 0 0.2rem rgba(72, 187, 120, 0.25);
+    }
+
+    .btn-primary {
+      background-color: #48BB78;
+      border-color: #48BB78;
+      border-radius: 10px;
+      padding: 12px 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #38A169;
+    }
+
+    .row.g-4 > div {
+      padding-bottom: 20px;
+    }
+
+    .mt-4.text-end {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-primary {
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      padding-top: 20px;
+      align-items: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #939FBD;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar a i {
+      font-size: 1.2rem;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar a.active {
+      color: black;
+      background-color: #F4F7FE;
+      font-weight: 600;
+    }
+
+    .sidebar a.active i {
+      color: #48BB78;
+    }
+
+    .sidebar a:hover {
+      color: black;
+      background-color: #F4F7FE;
+    }
+
+    .sidebar a:hover i {
+      color: #48BB78;
+    }
+
+
+  </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div>
+          <a href="#" class="text-decoration-none d-flex align-items-center">
+            <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 90px;">
+          </a>
+        </div>
+        <div>
+          <!-- <a href="#dashboard" class=""><i class="bi bi-house-door"></i>Dashboard</a> -->
+          <a href="create-event.html" class="active"><i class="bi bi-plus-circle"></i>Create Event</a>
+          <a href="events.html" ><i class="bi bi-calendar-event"></i>Events</a>
+          <a href="tickets.html" ><i class="bi bi-ticket"></i>Tickets</a>
+          <a href="attendee.html"><i class="bi bi-people"></i>Attendees</a>
+          <!-- <a href="#settings"><i class="bi bi-gear"></i>Settings</a> -->
+          <a href="login.html" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+        <div class="glass-image">
+            <img src="/Events-rafiki.png" alt="Event Management" style="width: 15em;height:22em;padding-top: 200px">
+    
+        </div>
+      </div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <h2 class="section-header">Create New Event</h2>
+    <div class="card-custom">
+      <form id="createEventForm" enctype="multipart/form-data">
+  <!-- Event Details -->
+  <div class="row g-4">
+    <h3 class="section-header">Event Details</h3>
+    <div class="col-md-6">
+      <label for="eventName" class="form-label">Event Name</label>
+      <input type="text" id="eventName" name="name" class="form-control" placeholder="Enter event name" required>
+    </div>
+    <div class="col-md-6">
+      <label for="eventPoster" class="form-label">Event Poster</label>
+      <input type="file" id="eventPoster" name="poster" class="form-control" accept="image/*">
+    </div>
+    <div class="col-md-6">
+      <label for="eventCategory" class="form-label">Category</label>
+      <input type="text" id="eventCategory" name="category" class="form-control" placeholder="Enter event category" required>
+    </div>
+    <div class="col-md-6">
+      <label for="eventLocation" class="form-label">Location</label>
+      <input type="text" id="eventLocation" name="location" class="form-control" placeholder="Enter event location" required>
+    </div>
+    <div class="col-md-6">
+      <label for="eventDate" class="form-label">Date</label>
+      <input type="date" id="eventDate" name="date" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+        <label for="eventTags" class="form-label">Tags</label>
+        <input type="text" id="eventTags" name="tags" class="form-control" placeholder="e.g., Music, Tech, Networking">
+      </div>
+    <div class="col-12">
+      <label for="eventDescription" class="form-label">Description</label>
+      <textarea id="eventDescription" name="description" class="form-control" rows="4" placeholder="Enter event description" required></textarea>
+    </div>
+  </div>
+
+  <!-- Ticket Details -->
+  <h3 class="section-header">Ticket Details</h3>
+  <div class="row g-4" id="ticketDetails">
+    <div class="col-md-6">
+      <label for="ticketType" class="form-label">Ticket Type</label>
+      <input type="text" id="ticketType" name="tickets[0].ticketType" class="form-control" placeholder="e.g., General Admission, VIP" required>
+    </div>
+    <div class="col-md-6">
+      <label for="ticketPrice" class="form-label">Price</label>
+      <input type="number" id="ticketPrice" name="tickets[0].price" class="form-control" placeholder="Enter ticket price" required>
+    </div>
+    <div class="col-md-6">
+      <label for="quantityAvailable" class="form-label">Quantity Available</label>
+      <input type="number" id="quantityAvailable" name="tickets[0].quantityAvailable" class="form-control" placeholder="Enter quantity available" required>
+    </div>
+    <div class="col-md-6">
+      <label for="salesStartDate" class="form-label">Sales Start Date</label>
+      <input type="date" id="salesStartDate" name="tickets[0].salesStartDate" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label for="salesEndDate" class="form-label">Sales End Date</label>
+      <input type="date" id="salesEndDate" name="tickets[0].salesEndDate" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="mt-4 text-end">
+    <button type="submit" class="btn btn-primary">Create Event</button>
+  </div>
+</form>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>document.getElementById('createEventForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent form from refreshing the page
+
+    // Retrieve authToken from local storage
+    const authToken = localStorage.getItem('authToken');
+    console.log('Auth Token:', authToken);
+
+
+    if (!authToken) {
+        alert('You are not authenticated. Please log in.');
+        window.location.href = '/login.html';
+        return;
+    }
+
+    // Decode JWT to extract email
+    function parseJwt(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            return JSON.parse(atob(base64));
+        } catch (e) {
+            console.error('Invalid token:', e);
+            return null;
+        }
+    }
+
+    const decodedToken = parseJwt(authToken);
+    console.log('Decoded JWT:', decodedToken);
+
+    const createdBy = decodedToken?.email || (decodedToken?.sub.includes('@') ? decodedToken?.sub : null);
+
+
+    if (!createdBy) {
+        alert('Failed to retrieve user information. Please log in again.');
+        localStorage.removeItem('authToken');
+        window.location.href = '/login.html';
+        return;
+    }
+
+    // Collect form data
+    const formData = new FormData(this);
+
+    // Prepare the ticket data dynamically
+    const tickets = [];
+    const ticketFields = document.querySelectorAll('#ticketDetails .form-control');
+    const ticketKeys = ['ticketType', 'price', 'quantityAvailable', 'salesStartDate', 'salesEndDate'];
+
+    for (let i = 0; i < ticketFields.length; i += ticketKeys.length) {
+        const ticket = {};
+        ticketKeys.forEach((key, idx) => {
+            const field = ticketFields[i + idx];
+            ticket[key] = field.type === 'number' ? parseFloat(field.value) : field.value;
+        });
+        tickets.push(ticket);
+    }
+
+    // Add the tickets array to formData as JSON
+    formData.append('event', JSON.stringify({
+        name: formData.get('name'),
+        description: formData.get('description'),
+        category: formData.get('category'),
+        location: formData.get('location'),
+        date: formData.get('date'),
+        tags: formData.get('tags'),
+        tickets: tickets,
+        createdBy: createdBy, // Include the email from the decoded token
+    }));
+
+    // Send the POST request to your backend
+    try {
+        const response = await fetch('/api/events', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${authToken}`, // Send token for authentication
+            },
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert('Event created successfully!');
+            console.log('Event created:', data);
+            window.location.href = '/events.html'; // Redirect to events page
+        } else {
+            const error = await response.json();
+            alert(`Error creating event: ${error.message}`);
+        }
+    } catch (err) {
+        console.error('Error submitting form:', err);
+        alert('An unexpected error occurred.');
+    }
+});
+</script>
+
+</body>
+
+</html>

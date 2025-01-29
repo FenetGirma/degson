@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - Event Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F4F7FE;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      padding-top: 20px;
+      align-items: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #939FBD;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar a i {
+      font-size: 1.2rem;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar a.active {
+      color: black;
+      background-color: #F4F7FE;
+      font-weight: 600;
+    }
+
+    .sidebar a.active i {
+      color: #48BB78;
+    }
+
+    .sidebar a:hover {
+      color: black;
+      background-color: #F4F7FE;
+    }
+
+    .sidebar a:hover i {
+      color: #48BB78;
+    }
+
+    .btn-custom {
+      background: #48BB78;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 30px;
+      border-radius: 30px;
+      transition: all 0.3s ease-in-out;
+      border: none;
+      margin-top: 15px;
+    }
+
+    .btn-custom:hover {
+      background: #3aa366;
+      transform: scale(1.05);
+    }
+
+    .event-list {
+      margin-top: 30px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      font-style: italic;
+      color: #1B254B;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .main-container {
+      margin-left: 250px;
+      margin-top: 100px;
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 10px;
+      left: 1000px;
+      right: 10px;
+      height: 70px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 30px;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-bar .search-container {
+      display: flex;
+      align-items: center;
+      background: #F4F7FE;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .top-bar .search-container input {
+      border: none;
+      outline: none;
+      background: none;
+      flex: 1;
+      font-size: 1rem;
+      color: #939FBD;
+    }
+
+    .top-bar .search-container i {
+      margin-right: 10px;
+      color: #939FBD;
+    }
+
+    .top-bar .icon-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-bar .icon-container i {
+      font-size: 1.2rem;
+      color: #939FBD;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .top-bar .icon-container i:hover {
+      color: #0d6efd;
+    }
+
+    .top-bar .profile {
+      width: 40px;
+      height: 40px;
+      background: #3aa366;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        align-items: baseline;
+
+    }
+
+    .custom-table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-table thead {
+        background: linear-gradient(90deg, #6FCF97, rgba(58, 163, 102, 0.3));
+      color: white;
+    }
+
+    .custom-table th,
+    .custom-table td {
+      text-align: center;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .custom-table tbody tr {
+      transition: background-color 0.3s;
+    }
+
+    .custom-table tbody tr:hover {
+      background: linear-gradient(90deg, rgba(72, 187, 120, 0.2), rgba(58, 163, 102, 0.2));
+    }
+
+    .custom-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+  </style>
+
+
+<style>
+  .custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px;
+    background: white;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .custom-table thead {
+    background: linear-gradient(90deg, #BEE3C8, #A0DAB0);
+    color: #48bb78;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 12px;
+  }
+
+  .custom-table th, .custom-table td {
+    padding: 8px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.006);
+    height: 30px;
+  }
+
+  .custom-table tbody tr:hover td {
+    background: rgba(72, 187, 120, 0.01);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .event-poster {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .event-poster:hover {
+    transform: scale(1.1);
+  }
+
+  .btn-outline-primary, .btn-outline-danger {
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: all 0.3s ease-in-out;
+    font-size: 0.9rem;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #48BB78;
+    color: white;
+    border-color: #48BB78;
+  }
+
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+  }
+</style>
+
+  
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a href="index.html" class="text-decoration-none d-flex align-items-center">
+        <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 85px;">
+      </a>
+    </div>
+    <div class="links">
+      <!-- <a href="#dashboard" class=""><i class="bi bi-house-door"></i>Dashboard</a> -->
+      <a href="create-event.html"><i class="bi bi-plus-circle"></i>Create Event</a>
+      <a href="events.html" class="active"><i class="bi bi-calendar-event"></i>Events</a>
+      <a href="tickets.html" ><i class="bi bi-ticket"></i>Tickets</a>
+      <a href="attendee.html"><i class="bi bi-people"></i>Attendees</a>
+    
+      <!-- <a href="#settings"><i class="bi bi-gear"></i>Settings</a> -->
+      <a href="login.html" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+    <div class="glass-image">
+        <img src="/Events-rafiki.png" alt="Event Management" style="width: 15em;height:22em;padding-top: 200px">
+
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="search-container">
+      <i class="bi bi-search"></i>
+      <input type="text" placeholder="Search...">
+    </div>
+    <div class="icon-container">
+      <div class="profile">AP</div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="header">
+      <h1>Event Management</h1>
+      <a href="create-event.html" class="btn btn-custom">Create Event</a>
+
+    </div>
+
+   
+<div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0 rounded-4">
+      <div class="modal-header bg-success text-white rounded-top-4">
+        <h5 class="modal-title fw-bold" id="editEventModalLabel">Edit Event</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <input type="hidden" id="editEventId">
+        <div class="mb-3">
+          <label for="editEventName" class="form-label fw-semibold">Event Name</label>
+          <input type="text" class="form-control rounded-3" id="editEventName">
+        </div>
+        <div class="mb-3">
+          <label for="editEventCategory" class="form-label fw-semibold">Category</label>
+          <input type="text" class="form-control rounded-3" id="editEventCategory">
+        </div>
+        <div class="mb-3">
+          <label for="editEventLocation" class="form-label fw-semibold">Location</label>
+          <input type="text" class="form-control rounded-3" id="editEventLocation">
+        </div>
+        <div class="mb-3">
+          <label for="editEventDate" class="form-label fw-semibold">Date</label>
+          <input type="date" class="form-control rounded-3" id="editEventDate">
+        </div>
+        <div class="mb-3">
+          <label for="editEventDescription" class="form-label fw-semibold">Description</label>
+          <textarea class="form-control rounded-3" id="editEventDescription" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success rounded-pill px-4" onclick="updateEvent()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="event-list">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Event Name</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Poster</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    function logout() {
+      // Clear the local storage
+      localStorage.clear();
+      // Optional: Add a confirmation message or log for debugging
+      console.log("Local storage cleared. Logging out...");
+      // Redirect to the login page
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get('token');
+
+if (token) {
+    localStorage.setItem('authToken', token);
+    console.log('Auth token stored successfully');
+} else {
+    console.error('No token found in URL');
+}
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/javascript/events.js}"></script>
+
+  
+</body>
+
+</html>
+

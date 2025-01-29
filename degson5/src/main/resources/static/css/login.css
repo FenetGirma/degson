@@ -1,0 +1,203 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .login-container {
+    background: white;
+    padding: 30px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .login-container:hover {
+    transform: translateY(-5px);
+  }
+
+  .login-header {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(90deg, #48BB78, #3aa366);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #48BB78;
+    box-shadow: 0 0 5px rgba(72, 187, 120, 0.5);
+  }
+
+  .btn-custom {
+    background: linear-gradient(90deg, #48BB78, #3aa366);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 50px;
+    width: 100%;
+    margin-top: 15px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+  }
+
+  .btn-custom:hover {
+    background: #3aa366;
+    transform: scale(1.05);
+  }
+
+  .divider {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: #777;
+    display: flex;
+    align-items: center;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+    margin: 0 10px;
+  }
+
+  .social-icons a {
+    font-size: 1.5rem;
+    margin: 0 10px;
+    color: #555;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  /* .social-icons a:hover {
+    background: #48BB78;
+    color: white;
+    transform: scale(1.1);
+  } */
+
+  .login-link {
+    font-weight: 500;
+    color: #48BB78;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .login-link:hover {
+    color: #3aa366;
+  }
+
+  header a {
+    color: #333;
+  }
+
+  header a:hover {
+    color: #48BB78;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-style: italic; /* Italic text */
+    background: linear-gradient(90deg, #48BB78, #3aa366); /* Gradient effect */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Transparent text with gradient */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 30px;
+  }
+
+  .btn-custom {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  .btn-custom:hover {
+    background-color: #3aa366;
+    color: white;
+  }
+
+  .main-container {
+      border: 2em;
+width: 80%;
+background: white;
+overflow: hidden;
+display: flex;
+justify-content: space-between; /* Ensures space between items */
+align-items: center; /* Centers items vertically */
+flex-wrap: wrap; /* Allows items to wrap if needed */
+}
+
+.btn {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-primary {
+    background-color: #48BB78;
+    border-color: #48BB78;
+  }
+
+  .btn-primary:hover {
+    background-color: #3aa366;
+    border-color: #3aa366;
+  }
+
+  .btn-outline-secondary:hover {
+    color: white;
+    background-color: #48BB78;
+    border-color: #48BB78;
+  }
+
+  @media (max-width: 576px) {
+    .signup-container {
+      padding: 20px;
+    }
+
+    .signup-header {
+      font-size: 1.5rem;
+    }
+  }
+
+  .glass-header {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+  }
+
+  .signup-link {
+    font-weight: 500;
+    color: #48BB78;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }

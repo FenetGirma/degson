@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #222;
+      line-height: 1.8;
+      background-color: #f9f9f9;
+    }
+    h1, .headertext {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-style: italic; /* Add italic styling */
+  background: linear-gradient(90deg, #48BB78, #3aa366);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Create a gradient text effect */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add slight shadow for depth */
+}
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #111;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    a {
+      font-weight: 500;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+
+    a:hover {
+      color: #48BB78;
+      text-decoration: none;
+    }
+
+    .btn {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+      background-color: #48BB78;
+      border-color: #48BB78;
+    }
+
+    .btn-primary:hover {
+      background-color: #3aa366;
+      border-color: #3aa366;
+    }
+
+    .btn-outline-secondary:hover {
+      color: white;
+      background-color: #48BB78;
+      border-color: #48BB78;
+    }
+
+    .hero {
+      background: white;
+      color: #333;
+      padding: 80px 0;
+    }
+
+    .glass {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .glass-text {
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    .glass-image {
+      flex: 1;
+    }
+
+    .glass-image img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .glass-header {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .features-section {
+      background: #fff;
+      padding: 60px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      color: #48BB78;
+    }
+
+    .gallery img {
+      border-radius: 15px;
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+    }
+
+    header a {
+      color: #333;
+    }
+
+    header a:hover {
+      color: #48BB78;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      font-style: italic; /* Italic text */
+      
+  
+      -webkit-text-fill-color: transparent; /* Transparent text with gradient */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .btn-custom {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+      background-color: #3aa366;
+      color: white;
+    }
+  </style>
+  <style>    .features-section {
+    padding: 100px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+   
+  }
+
+  .features-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 20px;
+  }
+
+  .feature-icon {
+    font-size: 4rem;
+    color: #48BB78;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: rgba(72, 187, 120, 0.1);
+  }
+
+  .feature-icon:hover {
+    transform: scale(1.2);
+  }
+
+  .features-section .col-md-4 {
+    transition: all 0.3s ease-in-out;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .features-section .col-md-4:hover {
+    background: rgba(72, 187, 120, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+  }
+
+  .features-section h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .features-section p {
+    font-size: 1rem;
+    color: #555;
+  }
+</style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="position-fixed top-0 w-100 glass-header" style="z-index: 1030;">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between p-3">
+        <a href="#" class="text-decoration-none d-flex align-items-center">
+          <a href="#" class="text-decoration-none d-flex align-items-center">
+            <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 95px;">
+          </a>
+          <!-- <span class="fs-4 fw-bold headertext">ድግሶን</span> -->
+        </a>
+
+        <nav class="d-none d-lg-flex align-items-center">
+          <a href="#features" class="text-decoration-none mx-3">Features</a>
+          <a href="#gallery" class="text-decoration-none mx-3">Gallery</a>
+          <a href="#pricing" class="text-decoration-none mx-3">Pricing</a>
+          <a href="#contact" class="text-decoration-none mx-3">Contact</a>
+        </nav>
+
+        <div class="d-flex align-items-center">
+          <a href="login.html" class="btn btn-outline-secondary btn-sm px-3 rounded-pill me-2">Login</a>
+          <a href="signup.html" class="btn btn-primary btn-sm px-3 rounded-pill">Sign Up</a>
+        </div>
+
+        <button class="btn btn-outline-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+          <i class="bi bi-list fs-3"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav>
+          <a href="#features" class="text-decoration-none d-block py-2">Features</a>
+          <a href="#gallery" class="text-decoration-none d-block py-2">Gallery</a>
+          <a href="#pricing" class="text-decoration-none d-block py-2">Pricing</a>
+          <a href="#contact" class="text-decoration-none d-block py-2">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero text-center">
+    <div class="container">
+      <div class="glass mx-auto">
+        <div class="glass-text">
+          <h1>ድግሶን</h1>
+          <p>Revolutionize your event planning with the ultimate management solution.</p>
+          <a href="#features" class="btn btn-primary btn-custom">Explore Features</a>
+          <a href="#pricing" class="btn btn-outline-secondary btn-custom ms-3">Get Started</a>
+        </div>
+        <div class="glass-image">
+            <img src="/Events-amico%20(1).png" alt="Event Management">
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section text-center">
+    <div class="container">
+      <h2>Our Features</h2>
+      <p>Streamlined tools to manage, organize, and deliver flawless events.</p>
+      <div class="row g-4 mt-5">
+        <div class="col-md-4">
+          <div class="feature-icon"><i class="bi bi-calendar-event"></i></div>
+          <h4>Event Scheduling</h4>
+          <p>Create schedules seamlessly and stay organized like a pro.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-icon"><i class="bi bi-people"></i></div>
+          <h4>Guest Management</h4>
+          <p>Effortlessly handle RSVPs, registrations, and communications.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-icon"><i class="bi bi-bar-chart"></i></div>
+          <h4>Advanced Insights</h4>
+          <p>Make informed decisions with real-time analytics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
