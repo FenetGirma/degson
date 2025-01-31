@@ -56,6 +56,7 @@ class Ticket {
     private String ticketType;
     private double price;
     private int quantityAvailable;
+    private int quantitySold;
     private Date salesStartDate;
     private Date salesEndDate;
 
@@ -66,6 +67,8 @@ class Ticket {
     public void setPrice(double price) { this.price = price; }
     public int getQuantityAvailable() { return quantityAvailable; }
     public void setQuantityAvailable(int quantityAvailable) { this.quantityAvailable = quantityAvailable; }
+    public int getQuantitySold() { return quantitySold; }
+    public void setQuantitySold(int quantitySold) { this.quantitySold = quantitySold; }
     public Date getSalesStartDate() { return salesStartDate; }
     public void setSalesStartDate(Date salesStartDate) { this.salesStartDate = salesStartDate; }
     public Date getSalesEndDate() { return salesEndDate; }

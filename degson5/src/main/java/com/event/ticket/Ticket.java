@@ -22,7 +22,7 @@ public class Ticket {
     private String ticketType; // e.g., General Admission, VIP
     private BigDecimal price;
     private Integer quantityAvailable;
-    private Integer quantitySold = 0;
+    private Integer quantitySold;
 
     private Date salesStartDate;
     private Date salesEndDate;

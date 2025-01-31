@@ -19,12 +19,18 @@ async function loadEvents() {
           <td>${event.location}</td>
           <td>${new Date(event.date).toLocaleDateString()}</td>
           <td>
-            <img src="http://localhost:8080${event.posterImagePath}" alt="Poster" style="width: 30px; height: 30px;" />
+            <img src="http://localhost:8080${
+              event.posterImagePath
+            }" alt="Poster" style="width: 30px; height: 30px;" />
             <br />
           </td>
           <td>
-            <button class="btn btn-outline-primary btn-sm" onclick="editEvent(${event.id})"><i class="bi bi-pencil"></i> Edit</button>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteEvent(${event.id})"><i class="bi bi-trash"></i> Delete</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="editEvent(${
+              event.id
+            })"><i class="bi bi-pencil"></i> Edit</button>
+            <button class="btn btn-outline-danger btn-sm" onclick="deleteEvent(${
+              event.id
+            })"><i class="bi bi-trash"></i> Delete</button>
           </td>
         </tr>
       `;
@@ -60,7 +66,10 @@ async function saveEvent() {
 
     if (response.ok) {
       alert("Event Created Successfully!");
-      document.getElementById("createEventModal").querySelector(".btn-close").click();
+      document
+        .getElementById("createEventModal")
+        .querySelector(".btn-close")
+        .click();
       loadEvents(); // Refresh event list
     } else {
       alert("Error creating event!");
@@ -99,12 +108,17 @@ async function editEvent(eventId) {
     document.getElementById("editEventName").value = event.name;
     document.getElementById("editEventCategory").value = event.category;
     document.getElementById("editEventLocation").value = event.location;
-    document.getElementById("editEventDate").value = event.date.substring(0, 10);
+    document.getElementById("editEventDate").value = event.date.substring(
+      0,
+      10
+    );
 
     document.getElementById("editEventDescription").value = event.description;
 
     // Show the edit modal
-    const editModal = new bootstrap.Modal(document.getElementById("editEventModal"));
+    const editModal = new bootstrap.Modal(
+      document.getElementById("editEventModal")
+    );
     editModal.show();
   } catch (error) {
     console.error("Error fetching event data:", error);
@@ -134,7 +148,10 @@ async function updateEvent() {
 
     if (response.ok) {
       alert("Event updated successfully!");
-      document.getElementById("editEventModal").querySelector(".btn-close").click();
+      document
+        .getElementById("editEventModal")
+        .querySelector(".btn-close")
+        .click();
       loadEvents(); // Refresh event list
     } else {
       alert("Error updating event!");
@@ -164,7 +181,7 @@ function decodeToken(token) {
 function getInitialsFromEmail(email) {
   if (!email) return "NA"; // Default if email is missing
   const parts = email.split("@")[0].split(/[._]/); // Split by dot or underscore
-  const initials = parts.map(part => part.charAt(0).toUpperCase()).join("");
+  const initials = parts.map((part) => part.charAt(0).toUpperCase()).join("");
   return initials.slice(0, 2); // Take first two initials
 }
 

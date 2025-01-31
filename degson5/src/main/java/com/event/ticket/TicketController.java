@@ -14,7 +14,7 @@ public class TicketController {
     private TicketService ticketService;
 
     // Get all tickets
-    @GetMapping
+    @GetMapping("/all")
     public List<Ticket> getAllTickets() {
         return ticketService.getAllTickets();
     }

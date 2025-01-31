@@ -1,377 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tickets - Event Management System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Sidebar styling */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f7fe;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tickets - Event Management System</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    /* Sidebar styling */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #F4F7FE;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        padding-top: 20px;
+        align-items: center;
+      }
 
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      padding-top: 20px;
-      align-items: center;
-    }
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        text-decoration: none;
+        font-size: 1rem;
+        color: #939fbd;
+        transition: all 0.3s ease;
+      }
 
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      padding: 15px 20px;
-      text-decoration: none;
-      font-size: 1rem;
-      color: #939FBD;
-      transition: all 0.3s ease;
-    }
+      .sidebar a i {
+        font-size: 1.2rem;
+        margin-right: 15px;
+        transition: color 0.3s ease;
+      }
 
-    .sidebar a i {
-      font-size: 1.2rem;
-      margin-right: 15px;
-      transition: color 0.3s ease;
-    }
+      .sidebar a.active {
+        color: black;
+        background-color: #f4f7fe;
+        font-weight: 600;
+      }
 
-    .sidebar a.active {
-      color: black;
-      background-color: #F4F7FE;
-      font-weight: 600;
-    }
+      .sidebar a.active i {
+        color: #48bb78;
+      }
 
-    .sidebar a.active i {
-      color: #48BB78;
-    }
+      .sidebar a:hover {
+        color: black;
+        background-color: #f4f7fe;
+      }
 
-    .sidebar a:hover {
-      color: black;
-      background-color: #F4F7FE;
-    }
+      .sidebar a:hover i {
+        color: #48bb78;
+      }
 
-    .sidebar a:hover i {
-      color: #48BB78;
-    }
+      .main-container {
+        margin-left: 250px;
+        margin-top: 20px;
+        padding: 20px;
+        flex-grow: 1;
+      }
 
-    .main-container {
-      margin-left: 250px;
-      margin-top: 20px;
-      padding: 20px;
-      flex-grow: 1;
-    }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        font-style: italic;
+        color: #1b254b;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
 
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      font-style: italic;
-      color: #1B254B;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
-    }
+      /* Table styling */
+      .custom-table thead {
+        background-color: #48bb78;
+        color: white;
+      }
 
-    /* Table styling */
-    
-    .custom-table thead {
-      background-color: #48BB78;
-      color: white;
-    }
+      .custom-table thead th {
+        padding: 13px;
+        text-align: left;
+        font-weight: 600;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
 
-    .custom-table thead th {
-      padding: 13px;
-      text-align: left;
-      font-weight: 600;
-      border-right: 1px solid rgba(255, 255, 255, 0.2);
-    }
+      .custom-table thead th:last-child {
+        border-right: none;
+      }
 
-    .custom-table thead th:last-child {
-      border-right: none;
-    }
+      .custom-table tbody tr {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+      }
 
-    .custom-table tbody tr {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
+      .custom-table tbody tr:hover {
+        background-color: rgba(76, 175, 80, 0.1);
+        transform: scale(1.01);
+      }
 
-    .custom-table tbody tr:hover {
-      background-color: rgba(76, 175, 80, 0.1);
-      transform: scale(1.01);
-    }
+      .custom-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Increased spacing between rows */
+        background-color: transparent;
+      }
 
-    .custom-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px; /* Increased spacing between rows */
-  background-color: transparent;
-}
+      .custom-table tbody td {
+        padding: 6px; /* Reduced padding for smaller cell height */
+        text-align: left;
+        border-bottom: none;
+      }
 
-.custom-table tbody td {
-  padding: 6px; /* Reduced padding for smaller cell height */
-  text-align: left;
-  border-bottom: none;
-}
+      .custom-table tbody td.actions button {
+        margin: 0 4px;
+        font-size: 0.875rem;
+        padding: 4px 10px;
+      }
 
-    .custom-table tbody td.actions button {
-      margin: 0 4px;
-      font-size: 0.875rem;
-      padding: 4px 10px;
-    }
+      .header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+      .glass-image {
+        background: rgba(255, 255, 255, 0.8); /* Example glass effect */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners for the glass effect */
+      }
 
-    .header{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-    }
-  </style>
-</head>
+      .icon-container {
+        display: flex;
+        align-items: center; /* Center items vertically */
+      }
 
-<body>
-  <div class="sidebar">
-    <div>
-      <a href="#" class="text-decoration-none d-flex align-items-center">
-        <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 95px;">
-      </a>
-    </div>
-    <div>
-      <!-- <a href="#dashboard"><i class="bi bi-house-door"></i>Dashboard</a> -->
-      <a href="create-event.html"><i class="bi bi-plus-circle"></i>Create Event</a>
-      <a href="events.html"><i class="bi bi-calendar-event"></i>Events</a>
-      <a href="tickets.html" class="active"><i class="bi bi-ticket"></i>Tickets</a>
-      <a href="attendee.html"><i class="bi bi-people"></i>Attendees</a>
+      .profile {
+        width: 40px; /* Adjust size as needed */
+        height: 40px; /* Adjust size as needed */
+        background-color: #48bb78; /* Green background */
+        color: white; /* Text color */
+        border-radius: 50%; /* Circle shape */
+        display: flex;
+        align-items: center; /* Center text vertically */
+        justify-content: center; /* Center text horizontally */
+        margin-right: 10px; /* Space between the profile and logout */
+        font-weight: bold; /* Optional: make the text stand out */
+      }
 
-    
-      <!-- <a href="#settings"><i class="bi bi-gear"></i>Settings</a> -->
-      <a href="#logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
-    </div>
-    <div class="glass-image">
-      <img src="/Events-rafiki.png" alt="Event Management" style="width: 15em;height:22em;padding-top: 200px">
-    </div>
-  </div>
+      a {
+        text-decoration: none; /* Remove underline */
+        color: black; /* Link color */
+        font-weight: 500; /* Optional: make the link text bold */
+      }
 
-  <div class="main-container">
-    <div class="header">
-      <h1>Manage Tickets</h1>
-      <button id="add-ticket-button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#ticketModal">
-        <i class="bi bi-plus-circle"></i> Add Ticket
-      </button>
-    </div>
-    <!-- Modal -->
-  <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ticketModalLabel">Add New Ticket</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      .btn-custom {
+        background: #48bb78;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 12px 30px;
+        border-radius: 30px;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        margin-top: 15px;
+      }
+
+      .btn-custom:hover {
+        background: #3aa366;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="d-flex">
+      <div class="sidebar">
+        <div class="logo mb-4">
+          <a href="index.html" class="text-decoration-none d-flex align-items-center">
+            <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 85px" />
+          </a>
         </div>
-        <div class="modal-body">
-      
-          
-            
-            <form id="ticket-form">
-              <div class="mb-3">
-                <label for="eventId" class="form-label">Event ID</label>
-                <input type="number" class="form-control" id="eventId" required>
-              </div>
-              
-              <div class="mb-3">
-                <label for="ticketType" class="form-label">Ticket Type</label>
-                <input type="text" class="form-control" id="ticketType" required>
-              </div>
-              <div class="mb-3">
-                <label for="price" class="form-label">Price ($)</label>
-                <input type="number" class="form-control" id="price" required>
-              </div>
-              <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity Available</label>
-                <input type="number" class="form-control" id="quantity" required>
-              </div>
-              <div class="mb-3">
-                <label for="salesStartDate" class="form-label">Sales Start Date</label>
-                <input type="date" class="form-control" id="salesStartDate" required>
-              </div>
-              <div class="mb-3">
-                <label for="salesEndDate" class="form-label">Sales End Date</label>
-                <input type="date" class="form-control" id="salesEndDate" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Save Ticket</button>
-            </form>
-            
-          
+        <div class="links flex-grow-1">
+          <a href="create-event.html"><i class="bi bi-plus-circle"></i> Create Event</a>
+          <a href="events.html"><i class="bi bi-calendar-event"></i> Events</a>
+          <a href="tickets.html"  class="active"><i class="bi bi-ticket-detailed-fill"></i> Tickets</a>
+          <a href="attendee.html"><i class="bi bi-people"></i> Attendees</a>
+        </div>
+        <div class="glass-image mt-4">
+          <div class="icon-container">
+            <div class="profile"></div>
+            <a href="login.html" onclick="logout()">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </div>
         </div>
       </div>
+
+    <div class="main-container">
+      <div class="header">
+        <h1>Manage Tickets</h1>
+        <button
+          id="add-ticket-button"
+          class="btn btn-custom btn-success mb-3"
+          data-bs-toggle="modal"
+          data-bs-target="#ticketModal"
+        >
+          <i class="bi bi-plus-circle"></i> Add Ticket
+        </button>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="ticketModal"
+        tabindex="-1"
+        aria-labelledby="ticketModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ticketModalLabel">Add New Ticket</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="ticket-form">
+                <div class="mb-3">
+                  <label for="eventId" class="form-label">Event ID</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="eventId"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="ticketType" class="form-label">Ticket Type</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ticketType"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="price" class="form-label">Price ($)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="quantity" class="form-label"
+                    >Quantity Available</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="salesStartDate" class="form-label"
+                    >Sales Start Date</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="salesStartDate"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="salesEndDate" class="form-label"
+                    >Sales End Date</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="salesEndDate"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Save Ticket
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Event Name</th>
+            <th>Ticket Type</th>
+            <th>Price</th>
+            <th>Quantity Available</th>
+            <th>Quantity Sold</th>
+            <th>Sales Start Date</th>
+            <th>Sales End Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tickets-table-body">
+          <tr></tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
     </div>
-  </div>
-    
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Event Name</th>
-          <th>Ticket Type</th>
-          <th>Price</th>
-          <th>Quantity Available</th>
-          <th>Quantity Sold</th>
-          <th>Sales Start Date</th>
-          <th>Sales End Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="tickets-table-body">
-        <tr>
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
-  </div>
-  <script>document.addEventListener("DOMContentLoaded", () => {
-    const apiUrl = "http://localhost:8080/api/tickets";
-    const tableBody = document.getElementById("tickets-table-body");
-    const ticketForm = document.getElementById("ticket-form");
-  
-    let editingTicketId = null; // Stores ticket ID for editing mode
-  
-    // ** Fetch tickets from API and populate table **
-    function loadTickets() {
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(tickets => {
-          tableBody.innerHTML = ""; // Clear existing rows
-          tickets.forEach((ticket, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td>${index + 1}</td>
-              <td>${ticket.event.name}</td>
-              <td>${ticket.ticketType}</td>
-              <td>$${ticket.price.toFixed(2)}</td>
-              <td>${ticket.quantityAvailable}</td>
-              <td>${ticket.quantitySold}</td>
-              <td>${new Date(ticket.salesStartDate).toLocaleDateString()}</td>
-              <td>${new Date(ticket.salesEndDate).toLocaleDateString()}</td>
-              <td class="actions">
-                <button class="btn btn-outline-primary btn-sm edit-btn" data-id="${ticket.id}">
-                  <i class="bi bi-pencil"></i> Edit
-                </button>
-                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${ticket.id}">
-                  <i class="bi bi-trash"></i> Delete
-                </button>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
-  
-          // Attach event listeners after rows are added
-          document.querySelectorAll(".edit-btn").forEach(button => {
-            button.addEventListener("click", handleEditTicket);
-          });
-  
-          document.querySelectorAll(".delete-btn").forEach(button => {
-            button.addEventListener("click", handleDeleteTicket);
-          });
-        })
-        .catch(error => console.error("Error fetching tickets:", error));
-    }
-  
-    loadTickets(); // Initial call to load tickets
-  
-    // ** Handle Form Submission (Create or Update Ticket) **
-    ticketForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-  
-      const ticketData = {
-        event: { id: parseInt(document.getElementById("eventId").value) }, // Ensure event ID is sent
-        ticketType: document.getElementById("ticketType").value,
-        price: parseFloat(document.getElementById("price").value),
-        quantityAvailable: parseInt(document.getElementById("quantity").value),
-        salesStartDate: document.getElementById("salesStartDate").value,
-        salesEndDate: document.getElementById("salesEndDate").value,
-        quantitySold: 0
-      };
-  
-      if (editingTicketId) {
-        // ** Update existing ticket **
-        fetch(`${apiUrl}/${editingTicketId}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(ticketData)
-        })
-          .then(response => response.json())
-          .then(() => {
-            alert("Ticket updated successfully!");
-            loadTickets();
-            ticketForm.reset();
-            editingTicketId = null; // Reset editing mode
-          })
-          .catch(error => console.error("Error updating ticket:", error));
-      } else {
-        // ** Create new ticket **
-        fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(ticketData)
-        })
-          .then(response => response.json())
-          .then(() => {
-            alert("Ticket added successfully!");
-            loadTickets();
-            ticketForm.reset();
-          })
-          .catch(error => console.error("Error adding ticket:", error));
-      }
-    });
-  
-    // ** Handle Editing Ticket **
-    function handleEditTicket(event) {
-      const ticketId = event.target.dataset.id || event.target.closest("button").dataset.id;
-      fetch(`${apiUrl}/${ticketId}`)
-        .then(response => response.json())
-        .then(ticket => {
-          document.getElementById("eventId").value = ticket.event.id;
-          document.getElementById("ticketType").value = ticket.ticketType;
-          document.getElementById("price").value = ticket.price;
-          document.getElementById("quantity").value = ticket.quantityAvailable;
-          document.getElementById("salesStartDate").value = ticket.salesStartDate.substring(0, 10);
-          document.getElementById("salesEndDate").value = ticket.salesEndDate.substring(0, 10);
-  
-          editingTicketId = ticket.id;
-          document.getElementById("ticketModalLabel").textContent = "Edit Ticket";
-          new bootstrap.Modal(document.getElementById("ticketModal")).show();
-        })
-        .catch(error => console.error("Error fetching ticket:", error));
-    }
-  
-    // ** Handle Deleting Ticket **
-    function handleDeleteTicket(event) {
-      const ticketId = event.target.dataset.id || event.target.closest("button").dataset.id;
-      if (confirm("Are you sure you want to delete this ticket?")) {
-        fetch(`${apiUrl}/${ticketId}`, {
-          method: "DELETE",
-        })
-          .then(() => {
-            alert("Ticket deleted successfully!");
-            loadTickets();
-          })
-          .catch(error => console.error("Error deleting ticket:", error));
-      }
-    }
-  });
-  </script>
+    <script th:src="@{/javascript/events.js}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const apiUrl = "http://localhost:8080/api/tickets";
+        const tableBody = document.getElementById("tickets-table-body");
+        const ticketForm = document.getElementById("ticket-form");
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        let editingTicketId = null; // Stores ticket ID for editing mode
 
+        // ** Fetch tickets from API and populate table **
+        function loadTickets() {
+          fetch(`${apiUrl}/all`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  "Network response was not ok " + response.statusText
+                );
+              }
+              return response.json();
+            })
+            .then((tickets) => {
+              tableBody.innerHTML = ""; // Clear existing rows
+              tickets.forEach((ticket, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${ticket.event.name}</td>
+                <td>${ticket.ticketType}</td>
+                <td>$${ticket.price.toFixed(2)}</td>
+                <td>${ticket.quantityAvailable}</td>
+                <td>${ticket.quantitySold}</td>
+                <td>${new Date(ticket.salesStartDate).toLocaleDateString()}</td>
+                <td>${new Date(ticket.salesEndDate).toLocaleDateString()}</td>
+                <td class="actions">
+                  <button class="btn btn-outline-primary btn-sm edit-btn" data-id="${
+                    ticket.id
+                  }">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${
+                    ticket.id
+                  }">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              `;
+                tableBody.appendChild(row);
+              });
+
+              // Attach event listeners after rows are added
+              document.querySelectorAll(".edit-btn").forEach((button) => {
+                button.addEventListener("click", handleEditTicket);
+              });
+
+              document.querySelectorAll(".delete-btn").forEach((button) => {
+                button.addEventListener("click", handleDeleteTicket);
+              });
+            })
+            .catch((error) => console.error("Error fetching tickets:", error));
+        }
+
+        loadTickets(); // Initial call to load tickets
+
+        // ** Handle Form Submission (Create or Update Ticket) **
+        ticketForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const ticketData = {
+            event: { id: parseInt(document.getElementById("eventId").value) }, // Ensure event ID is sent
+            ticketType: document.getElementById("ticketType").value,
+            price: parseFloat(document.getElementById("price").value),
+            quantityAvailable: parseInt(
+              document.getElementById("quantity").value
+            ),
+            salesStartDate: document.getElementById("salesStartDate").value,
+            salesEndDate: document.getElementById("salesEndDate").value,
+            quantitySold: 0,
+          };
+
+          if (editingTicketId) {
+            // ** Update existing ticket **
+            fetch(`${apiUrl}/${editingTicketId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(ticketData),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    "Network response was not ok " + response.statusText
+                  );
+                }
+                return response.json();
+              })
+              .then(() => {
+                alert("Ticket updated successfully!");
+                loadTickets();
+                ticketForm.reset();
+                editingTicketId = null; // Reset editing mode
+              })
+              .catch((error) => console.error("Error updating ticket:", error));
+          } else {
+            // ** Create new ticket **
+            fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(ticketData),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    "Network response was not ok " + response.statusText
+                  );
+                }
+                return response.json();
+              })
+              .then(() => {
+                alert("Ticket added successfully!");
+                loadTickets();
+                ticketForm.reset();
+              })
+              .catch((error) => console.error("Error adding ticket:", error));
+          }
+        });
+
+        // ** Handle Editing Ticket **
+        function handleEditTicket(event) {
+          const ticketId =
+            event.target.dataset.id ||
+            event.target.closest("button").dataset.id;
+          fetch(`${apiUrl}/${ticketId}`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  "Network response was not ok " + response.statusText
+                );
+              }
+              return response.json();
+            })
+            .then((ticket) => {
+              document.getElementById("eventId").value = ticket.event.id;
+              document.getElementById("ticketType").value = ticket.ticketType;
+              document.getElementById("price").value = ticket.price;
+              document.getElementById("quantity").value =
+                ticket.quantityAvailable;
+              document.getElementById("salesStartDate").value =
+                ticket.salesStartDate.substring(0, 10);
+              document.getElementById("salesEndDate").value =
+                ticket.salesEndDate.substring(0, 10);
+
+              editingTicketId = ticket.id;
+              document.getElementById("ticketModalLabel").textContent =
+                "Edit Ticket";
+              new bootstrap.Modal(
+                document.getElementById("ticketModal")
+              ).show();
+            })
+            .catch((error) => console.error("Error fetching ticket:", error));
+        }
+
+        // ** Handle Deleting Ticket **
+        function handleDeleteTicket(event) {
+          const ticketId =
+            event.target.dataset.id ||
+            event.target.closest("button").dataset.id;
+          if (confirm("Are you sure you want to delete this ticket?")) {
+            fetch(`${apiUrl}/${ticketId}`, {
+              method: "DELETE",
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    "Network response was not ok " + response.statusText
+                  );
+                }
+                alert("Ticket deleted successfully!");
+                loadTickets();
+              })
+              .catch((error) => console.error("Error deleting ticket:", error));
+          }
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

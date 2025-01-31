@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> 
 	</parent>
 	<groupId>com.event</groupId>
 	<artifactId>event</artifactId>
@@ -40,10 +40,22 @@
     <artifactId>javase</artifactId>
     <version>3.5.2</version>
 </dependency>
+<dependency>
+	<groupId>javax.persistence</groupId>
+
+        <artifactId>javax.persistence-api</artifactId>
+
+        <version>2.2</version>
+</dependency>
 
 	<dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
 </dependency>
 
 	 <dependency>
@@ -103,6 +115,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-configuration-processor</artifactId>
+    <optional>true</optional>
+</dependency>
 	</dependencies>
 
 	<build>
@@ -110,6 +135,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                <mainClass>com.event.EventApplication</mainClass> 
+            </configuration>
 			</plugin>
 		</plugins>
 	</build>

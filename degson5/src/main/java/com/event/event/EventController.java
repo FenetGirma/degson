@@ -18,7 +18,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    private static final String UPLOAD_DIR = "C:\\Users\\wario\\Downloads\\events\\event\\src\\main\\resources\\static\\uploads\\";
+    private static final String UPLOAD_DIR = "C:\\Users\\Lidya\\Desktop\\degson5\\degson\\degson5\\src\\main\\resources\\static\\uploads\\";
 
 
     @GetMapping

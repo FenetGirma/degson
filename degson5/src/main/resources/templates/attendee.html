@@ -1,261 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendee Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Add your styles here */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f7fe;
+        margin: 0;
+        display: flex;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendee Management</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    /* Add your styles here */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #F4F7FE;
-      margin: 0;
-      display: flex;
-    }
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        padding-top: 20px;
+        align-items: center;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.06);
+      }
 
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      padding-top: 20px;
-      align-items: center;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.06);
-    }
+      .main-container {
+        margin-left: 250px;
+        margin-top: 20px;
+        padding: 20px;
+        flex-grow: 1;
+        background-color: #f8f9fe;
+        min-height: 100vh;
+      }
 
-    .main-container {
-      margin-left: 250px;
-      padding: 20px;
-      flex-grow: 1;
-      background-color: #F8F9FE;
-      min-height: 100vh;
-    }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        font-style: italic;
+        color: #1b254b;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
 
-    h2.section-header {
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #38A169;
-      margin-bottom: 20px;
-    }
+      .card-custom {
+        background-color: white;
+        border: none;
+        border-radius: 16px;
+        padding: 30px;
+      }
 
-    .card-custom {
-      background-color: white;
-      border: none;
-      border-radius: 16px;
-      padding: 30px;
-    }
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        padding-top: 20px;
+        align-items: center;
+      }
 
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        text-decoration: none;
+        font-size: 1rem;
+        color: #939fbd;
+        transition: all 0.3s ease;
+      }
 
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      padding-top: 20px;
-      align-items: center;
-    }
+      .sidebar a i {
+        font-size: 1.2rem;
+        margin-right: 15px;
+        transition: color 0.3s ease;
+      }
 
-    .sidebar a {
-      display: flex;
-      align-items: center;
-      padding: 15px 20px;
-      text-decoration: none;
-      font-size: 1rem;
-      color: #939FBD;
-      transition: all 0.3s ease;
-    }
+      .sidebar a.active {
+        color: black;
+        background-color: #f4f7fe;
+        font-weight: 600;
+      }
 
-    .sidebar a i {
-      font-size: 1.2rem;
-      margin-right: 15px;
-      transition: color 0.3s ease;
-    }
+      .sidebar a.active i {
+        color: #48bb78;
+      }
 
-    .sidebar a.active {
-      color: black;
-      background-color: #F4F7FE;
-      font-weight: 600;
-    }
+      .sidebar a:hover {
+        color: black;
+        background-color: #f4f7fe;
+      }
 
-    .sidebar a.active i {
-      color: #48BB78;
-    }
+      .sidebar a:hover i {
+        color: #48bb78;
+      }
 
-    .sidebar a:hover {
-      color: black;
-      background-color: #F4F7FE;
-    }
+      .btn-custom {
+        background: #48bb78;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 12px 30px;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        margin-top: 15px;
+      }
 
-    .sidebar a:hover i {
-      color: #48BB78;
-    }
+      .glass-image {
+        background: rgba(255, 255, 255, 0.8); /* Example glass effect */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners for the glass effect */
+      }
 
-    .btn-custom {
-      background: #48BB78;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 30px;
-      border-radius: 10px;
-      transition: all 0.3s ease-in-out;
-      border: none;
-      margin-top: 15px;
-    }
-  </style>
-</head>
+      .icon-container {
+        display: flex;
+        align-items: center; /* Center items vertically */
+      }
 
-<body>
-  <div class="sidebar">
-    <div>
-      <a href="#" class="text-decoration-none d-flex align-items-center">
-        <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 90px;">
-      </a>
-    </div>
-    <div>
-      <!-- <a href="#dashboard"><i class="bi bi-house-door"></i>Dashboard</a> -->
-      <a href="create-event.html"><i class="bi bi-plus-circle"></i>Create Event</a>
-      <a href="events.html"><i class="bi bi-calendar-event"></i>Events</a>
-      <a href="tickets.html"><i class="bi bi-ticket"></i>Tickets</a>
-      <a href="attendee.html" class="active"><i class="bi bi-people"></i>Attendees</a>
-      <a href="login.html" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Logout</a>
-    </div>
-    <div class="glass-image">
-      <img src="/Events-rafiki.png" alt="Event Management" style="width: 15em;height:22em;padding-top: 200px">
-    </div>
-  </div>
+      .profile {
+        width: 40px; /* Adjust size as needed */
+        height: 40px; /* Adjust size as needed */
+        background-color: #48bb78; /* Green background */
+        color: white; /* Text color */
+        border-radius: 50%; /* Circle shape */
+        display: flex;
+        align-items: center; /* Center text vertically */
+        justify-content: center; /* Center text horizontally */
+        margin-right: 10px; /* Space between the profile and logout */
+        font-weight: bold; /* Optional: make the text stand out */
+      }
 
-  <div class="main-container">
-    <h2 class="section-header">Attendee Management</h2>
-    <div class="card-custom">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Event Name</th>
-          </tr>
-        </thead>
-        <tbody id="attendeeTableBody">
-          <!-- Rows will be populated dynamically -->
-        </tbody>
-      </table>
+      a {
+        text-decoration: none; /* Remove underline */
+        color: black; /* Link color */
+        font-weight: 500; /* Optional: make the link text bold */
+      }
+    </style>
+  </head>
 
-      <form id="addAttendeeForm" class="mt-4">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label for="attendeeName" class="form-label">Event ID</label>
-            <input type="number" id="eventId" class="form-control" placeholder="Enter Event ID" required>
-          </div>
-          <div class="col-md-4">
-            <label for="attendeeName" class="form-label">Name</label>
-            <input type="text" id="attendeeName" class="form-control" placeholder="Enter attendee name" required>
-          </div>
-          <div class="col-md-4">
-            <label for="attendeeEmail" class="form-label">Email</label>
-            <input type="email" id="attendeeEmail" class="form-control" placeholder="Enter attendee email" required>
-          </div>
-          <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn-custom">Add</button>
+  <body>
+    <div class="d-flex">
+      <div class="sidebar">
+        <div class="logo mb-4">
+          <a href="index.html" class="text-decoration-none d-flex align-items-center">
+            <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 110px; height: 85px" />
+          </a>
+        </div>
+        <div class="links flex-grow-1">
+          <a href="create-event.html"><i class="bi bi-plus-circle"></i> Create Event</a>
+          <a href="events.html" ><i class="bi bi-calendar-event"></i> Events</a>
+          <a href="tickets.html"><i class="bi bi-ticket"></i> Tickets</a>
+          <a href="attendee.html" class="active"><i class="bi bi-people-fill"></i> Attendees</a>
+        </div>
+        <div class="glass-image mt-4">
+          <div class="icon-container">
+            <div class="profile"></div>
+            <a href="login.html" onclick="logout()">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
           </div>
         </div>
-      </form>
+      </div>
+
+    <div class="main-container">
+      <h1 class="section-header">Attendee Management</h1>
+      <div class="card-custom">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Event Name</th>
+            </tr>
+          </thead>
+          <tbody id="attendeeTableBody">
+            <!-- Rows will be populated dynamically -->
+          </tbody>
+        </table>
+
+        <form id="addAttendeeForm" class="mt-4">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="attendeeName" class="form-label">Event ID</label>
+              <input
+                type="number"
+                id="eventId"
+                class="form-control"
+                placeholder="Enter Event ID"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="attendeeName" class="form-label">Name</label>
+              <input
+                type="text"
+                id="attendeeName"
+                class="form-control"
+                placeholder="Enter attendee name"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="attendeeEmail" class="form-label">Email</label>
+              <input
+                type="email"
+                id="attendeeEmail"
+                class="form-control"
+                placeholder="Enter attendee email"
+                required
+              />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button type="submit" class="btn-custom">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script>
-    const attendeeTableBody = document.getElementById('attendeeTableBody');
-    const addAttendeeForm = document.getElementById('addAttendeeForm');
+    <script th:src="@{/javascript/events.js}"></script>
+    <script>
+      const attendeeTableBody = document.getElementById("attendeeTableBody");
+      const addAttendeeForm = document.getElementById("addAttendeeForm");
 
-    const API_URL = 'http://localhost:8080/api/attendees'; // Replace with your actual backend URL
+      const API_URL = "http://localhost:8080/api/attendees"; // Replace with your actual backend URL
 
-    // Fetch and render attendees from the backend
-    async function fetchAttendees() {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error('Failed to fetch attendees');
+      // Fetch and render attendees from the backend
+      async function fetchAttendees() {
+        try {
+          const response = await fetch(API_URL);
+          if (!response.ok) {
+            throw new Error("Failed to fetch attendees");
+          }
+          const attendees = await response.json();
+          renderAttendees(attendees);
+        } catch (error) {
+          console.error("Error fetching attendees:", error);
         }
-        const attendees = await response.json();
-        renderAttendees(attendees);
-      } catch (error) {
-        console.error('Error fetching attendees:', error);
       }
-    }
 
-    // Render attendees in the table
-    function renderAttendees(attendees) {
-      attendeeTableBody.innerHTML = '';
-      attendees.forEach((attendee, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <th scope="row">${index + 1}</th>
+      // Render attendees in the table
+      function renderAttendees(attendees) {
+        attendeeTableBody.innerHTML = "";
+        attendees.forEach((attendee, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          
           <td>${attendee.name}</td>
           <td>${attendee.email}</td>
              <td>${attendee.event.name}</td>
         `;
-        attendeeTableBody.appendChild(row);
+          attendeeTableBody.appendChild(row);
+        });
+      }
+
+      // Add a new attendee
+      addAttendeeForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Get form input values
+        const name = document.getElementById("attendeeName").value.trim();
+        const email = document.getElementById("attendeeEmail").value.trim();
+        const eventId = document.getElementById("eventId").value.trim();
+
+        // Check for empty fields
+        if (!name || !email || !eventId) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        try {
+          // Prepare request payload
+          const attendeeData = {
+            name,
+            email,
+            event: { id: parseInt(eventId, 10) }, // Ensure event ID is sent as a number
+          };
+
+          // Send the POST request to the API
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(attendeeData),
+          });
+
+          // Check if the response is successful
+          if (!response.ok) {
+            const errorText = await response.text(); // Get detailed error message if available
+            throw new Error(`Failed to add attendee: ${errorText}`);
+          }
+
+          // Fetch the updated list of attendees
+          await fetchAttendees();
+
+          // Reset the form and provide feedback
+          addAttendeeForm.reset();
+          alert("Attendee added successfully!");
+        } catch (error) {
+          console.error("Error adding attendee:", error.message);
+          alert(`Error: ${error.message}`);
+        }
       });
-    }
 
-    // Add a new attendee
-addAttendeeForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  // Get form input values
-  const name = document.getElementById('attendeeName').value.trim();
-  const email = document.getElementById('attendeeEmail').value.trim();
-  const eventId = document.getElementById('eventId').value.trim();
-
-  // Check for empty fields
-  if (!name || !email || !eventId) {
-    alert('Please fill in all fields.');
-    return;
-  }
-
-  try {
-    // Prepare request payload
-    const attendeeData = {
-      name,
-      email,
-      event: { id: parseInt(eventId, 10) } // Ensure event ID is sent as a number
-    };
-
-    // Send the POST request to the API
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(attendeeData),
-    });
-
-    // Check if the response is successful
-    if (!response.ok) {
-      const errorText = await response.text(); // Get detailed error message if available
-      throw new Error(`Failed to add attendee: ${errorText}`);
-    }
-
-    // Fetch the updated list of attendees
-    await fetchAttendees();
-
-    // Reset the form and provide feedback
-    addAttendeeForm.reset();
-    alert('Attendee added successfully!');
-  } catch (error) {
-    console.error('Error adding attendee:', error.message);
-    alert(`Error: ${error.message}`);
-  }
-});
-
-    // Initial fetch
-    fetchAttendees();
-  </script>
-</body>
-
+      // Initial fetch
+      fetchAttendees();
+    </script>
+  </body>
 </html>

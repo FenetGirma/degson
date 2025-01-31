@@ -1,151 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Event Management System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Event Management System</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/login.css}">
-</head>
+  <body>
+    <header
+      class="position-fixed top-0 w-100 glass-header"
+      style="z-index: 1030"
+    >
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between p-3">
+          <a
+            href="index.html"
+            class="text-decoration-none d-flex align-items-center"
+          >
+            <img
+              src="wmremove-transformed.png"
+              alt="Logo"
+              class="rounded-circle me-2"
+              style="width: 90px; height: 65px"
+            />
+          </a>
 
-<body>
-  <!-- Header -->
-  <header class="position-fixed top-0 w-100 glass-header" style="z-index: 1030;">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between p-3">
-        <a href="index.html" class="text-decoration-none d-flex align-items-center">
-          <img src="wmremove-transformed.png" alt="Logo" class="rounded-circle me-2" style="width: 90px; height: 65px;">
-        </a>
+          <div class="d-flex align-items-center">
+            <a
+              href="login.html"
+              class="btn btn-primary btn-sm px-3 rounded-pill me-2"
+              >Login</a
+            >
+            <a
+              href="signup.html"
+              class="btn btn-outline-secondary btn-sm px-3 rounded-pill me-2"
+              >Sign Up</a
+            >
+            <a
+              href="signupAdmin.html"
+              class="btn btn-outline-secondary btn-sm px-3 rounded-pill me-2"
+              >Sign Up as Admin</a
+            >
+          </div>
 
-        
+          <button
+            class="btn btn-outline-secondary d-lg-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu"
+            aria-controls="mobileMenu"
+          >
+            <i class="bi bi-list fs-3"></i>
+          </button>
+        </div>
+      </div>
 
-        <div class="d-flex align-items-center">
-          <a href="signup.html" class="btn btn-outline-secondary btn-sm px-3 rounded-pill me-2">Sign Up</a>
-          <a href="login.html" class="btn btn-primary btn-sm px-3 rounded-pill">Login</a>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Menu</h5>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="image-section">
+        <img
+          src="Events-rafiki.png"
+          alt="Event Illustration"
+          class="img-fluid rounded"
+          style="max-width: 100%; height: auto; width: 600px"
+        />
+      </div>
+
+      <div class="login-container">
+        <h1 class="login-header">Log In</h1>
+        <p class="text-muted">Welcome back! Please log in to continue.</p>
+        <form id="loginForm">
+          <div class="mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email Address"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-custom">Log In</button>
+        </form>
+
+        <div class="divider">or log in with</div>
+
+        <div class="social-icons">
+          <a
+            href="http://localhost:8080/oauth2/authorization/google"
+            class="google-login-btn"
+            aria-label="Continue with Google"
+          >
+            <img src="web_light_rd_ctn@1x.png" alt="Continue with Google" />
+          </a>
         </div>
 
-        <button class="btn btn-outline-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
-          <i class="bi bi-list fs-3"></i>
-        </button>
+        <p class="mt-4 text-muted">
+          Don't have an account?
+          <a href="signup.html" class="signup-link">Sign up</a>
+        </p>
       </div>
     </div>
+    <script>
+      function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+      }
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-     
-    </div>
-  </header>
+      const token = getQueryParam("token");
+      if (token) {
+        localStorage.setItem("authToken", token);
+        console.log("Token saved:", token);
+        alert("Google login successful! Redirecting...");
+        window.location.href = "eventsUser.html";
+      }
+    </script>
 
-  <div class="main-container">
-    <!-- Image Section -->
-    <div class="image-section">
-      <img src="Events-rafiki.png" alt="Event Illustration" class="img-fluid rounded" style="max-width: 100%; height: auto; width: 600px;">
-    </div>
+    <script>
+      // Check if redirected after Google login
+      if (window.location.pathname === "/api/auth/oauth2-success") {
+        const token = new URLSearchParams(window.location.search).get("token");
+        if (token) {
+          localStorage.setItem("authToken", token);
+          alert("Google login successful!");
+          // Redirect to a secure page
+          window.location.href = "eventsUser.html";
+        } else {
+          alert("Google login failed.");
+        }
+      }
 
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-  <div class="login-container">
-    <h1 class="login-header">Log In</h1>
-    <p class="text-muted">Welcome back! Please log in to continue.</p>
-    <form id="loginForm">
-      <div class="mb-3">
-        <input type="email" class="form-control" id="email" placeholder="Email Address" required>
-      </div>
-      <div class="mb-3">
-        <input type="password" class="form-control" id="password" placeholder="Password" required>
-      </div>
-      <button type="submit" class="btn btn-custom">Log In</button>
-    </form>
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
 
-    <div class="divider">or log in with</div>
+          try {
+            const response = await fetch(
+              "http://localhost:8080/api/auth/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+              }
+            );
 
-    <div class="social-icons">
-        <a href="http://localhost:8080/oauth2/authorization/google" 
-           class="google-login-btn" 
-           aria-label="Continue with Google">
-            <img src="web_light_rd_ctn@1x.png" 
-                 alt="Continue with Google">
-        </a>
-    </div>
-    
+            const rawResponse = await response.json(); // Inspect raw server response
+            console.log("Server Response:", rawResponse);
+            console.log("Role", rawResponse.role);
 
-    <p class="mt-4 text-muted">Don't have an account? <a href="signup.html" class="signup-link">Sign up</a></p>
-  </div>
-  </div>
-  <script>
-    // Function to get query parameters from URL
-    function getQueryParam(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name);
-    }
-  
-    // Check if the page is loaded after Google OAuth login
-    const token = getQueryParam('token');
-    if (token) {
-      localStorage.setItem('authToken', token);
-      console.log('Token saved:', token);
-      alert('Google login successful! Redirecting...');
-      window.location.href = 'events.html'; // Redirect to the main page
-    }
-  </script>
-  
+            if (response.ok) {
+              console.log("Token:", rawResponse.token); // Output the token
 
+              // Store the token
+              localStorage.setItem("authToken", rawResponse.token);
 
-  <script>
-    // Check if redirected after Google login
-if (window.location.pathname === '/api/auth/oauth2-success') {
-  const token = new URLSearchParams(window.location.search).get('token');
-  if (token) {
-    localStorage.setItem('authToken', token);
-    alert('Google login successful!');
-    // Redirect to a secure page
-    window.location.href = 'events.html';
-  } else {
-    alert('Google login failed.');
-  }
-}
+              // Decode the JWT to extract the role
 
-  document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+              const role = rawResponse.role; // Assuming roles is an array
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+              // Redirect based on the role
+              if (role === "ADMIN") {
+                window.location.href = "events.html"; // Admin page
+              } else {
+                window.location.href = "eventsUser.html"; // User page
+              }
+            } else {
+              alert(`Login failed: ${rawResponse}`);
+            }
+          } catch (error) {
+            console.error("Error during login:", error);
+            alert("An error occurred. Please try again later.");
+          }
+        });
+    </script>
 
-  try {
-    const response = await fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const rawResponse = await response.text(); // Use response.text() to inspect the raw server response
-    console.log('Server Response:', rawResponse);
-
-    if (response.ok) {
-      alert('Login successful!');
-      console.log('Token:', rawResponse); // Output the token
-      localStorage.setItem('authToken', rawResponse);
-         // Redirect to events.html
-         window.location.href = 'events.html';
-    } else {
-      alert(`Login failed: ${rawResponse}`);
-    }
-  } catch (error) {
-    console.error('Error during login:', error);
-    alert('An error occurred. Please try again later.');
-  }
-});
-
-
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

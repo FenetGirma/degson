@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -145,12 +146,12 @@ class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(String name, String email, String password) {
+    public void registerUser(String name, String email, String password, String role) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        user.setRole("USER"); // Default role as USER
+        user.setRole(role); 
         userRepository.save(user);
     }
 
@@ -189,7 +190,7 @@ class AuthController {
         String email = (String) attributes.get("email");
         String token = jwtUtil.generateToken(email);
 
-        return new RedirectView("/events.html?token=" + token);
+        return new RedirectView("/eventsUser.html?token=" + token);
     }
 
     @PostMapping("/signup")
@@ -197,17 +198,34 @@ class AuthController {
         String name = payload.get("name");
         String email = payload.get("email");
         String password = payload.get("password");
-        userService.registerUser(name, email, password);
+        userService.registerUser(name, email, password, "USER");
         return "User registered successfully with name: " + name;
     }
 
+    @PostMapping("/signupAdmin")
+    public String signupAdmin(@RequestBody Map<String, String> payload) {
+        String name = payload.get("name");
+        String email = payload.get("email");
+        String password = payload.get("password");
+        
+        userService.registerUser(name, email, password, "ADMIN");
+        return "Admin registered successfully with name: " + name;
+    }
+
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> payload) {
+    public Map<String, String> login(@RequestBody Map<String, String> payload) {
         String email = payload.get("email");
         String password = payload.get("password");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtUtil.generateToken(email);
+        String token = jwtUtil.generateToken(email);
+        User user = userService.findUserByEmail(email);
+        String role = user.getRole();
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        response.put("role", role);
+        return response;
+
     }
 }

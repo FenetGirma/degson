@@ -234,12 +234,12 @@
             >
             <a
               href="signup.html"
-              class="btn btn-primary btn-sm px-3 rounded-pill me-2"
+              class="btn btn-outline-secondary btn-sm px-3 rounded-pill me-2"
               >Sign Up</a
             >
             <a
-              href="signupAdmin.html"
-              class="btn btn-outline-secondary btn-sm px-3 rounded-pill"
+              href="signup.html"
+              class="btn btn-primary btn-sm px-3 rounded-pill"
               >Sign Up As Admin</a
             >
           </div>
@@ -281,7 +281,7 @@
       </div>
 
       <div class="signup-container">
-        <h1 class="signup-header">Sign Up</h1>
+        <h1 class="signup-header">Sign Up As Admin</h1>
         <p class="text-muted">
           Join us and revolutionize your event planning experience.
         </p>
@@ -313,7 +313,9 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-custom">Create Account</button>
+          <button type="submit" class="btn btn-custom">
+            Create Admin Account
+          </button>
         </form>
 
         <div class="divider">or sign up with</div>
@@ -347,13 +349,13 @@
 
           try {
             const response = await fetch(
-              "http://localhost:8080/api/auth/signup",
+              "http://localhost:8080/api/auth/signupAdmin",
               {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password, name }),
+                body: JSON.stringify({ email, password, name, role: "ADMIN" }), // Explicitly set role
               }
             );
 
